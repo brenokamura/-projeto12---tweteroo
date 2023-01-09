@@ -13,7 +13,7 @@ app.post('/sign-up', (req, res) => {
     const { username, avatar } = req.body;
     
     if (!username) {
-      res.status(400).send("Preencha o campo Nome do usuário!");
+      res.status(400).send("UNAUTHORIZED");
       return;
     } else {
     } if (!avatar) {
