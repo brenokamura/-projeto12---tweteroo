@@ -21,9 +21,9 @@ app.post('/sign-up', (req, res) => {
       return;
     }
   
-    const isUser = users.find((user) => user.username === user);
+    const isUser = users.find((user) => user.username === username);
     if (isUser) {
-      res.send("Usuário já exite! Por favor, insira outro usuário!");
+      res.status(409).send("Usuário já exite! Por favor, insira outro usuário!");
       return;
     }
     users.push({username, avatar});
@@ -31,4 +31,22 @@ app.post('/sign-up', (req, res) => {
     res.status(201).send("Cadastro realizado com sucesso!");
   });
   
+  app.post('/tweets', (req, res) => {
+    const { username } = req.headers;
+    const { tweet } = req.body;
+    
+    if (!username) {
+      res.status(400).send("O campo Nome do usuário deve estar preenchido!");
+      return;
+    } else {
+    } if (!tweet) {
+      res.status(400).send("Preencha o campo Tweet!");
+      return;
+    }
+  
+    tweets.push({ username, tweet});
+    console.log(tweets);
+    res.status(201).send("Tweet postado com sucesso!");
+  });
+
 app.listen(5000, () => console.log("Server running on port 5000"))
