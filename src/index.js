@@ -49,4 +49,14 @@ app.post('/sign-up', (req, res) => {
     res.status(201).send("Tweet postado com sucesso!");
   });
 
+
+  app.get('/tweets', (req, res) => {
+    tweets.forEach((tweet) => {
+      const { avatar } = users.find((user) => user.username === tweet.username);
+      tweet.avatar = avatar;
+    });
+    res.send(tweets.slice(-10));
+  });
+
+
 app.listen(5000, () => console.log("Server running on port 5000"))
