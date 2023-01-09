@@ -32,10 +32,10 @@ app.post('/sign-up', (req, res) => {
   });
   
   app.post('/tweets', (req, res) => {
-    const { username } = req.headers;
+    const { user} = req.headers;
     const { tweet } = req.body;
     
-    if (!username) {
+    if (!user) {
       res.status(400).send("O campo Nome do usuário deve estar preenchido!");
       return;
     } else {
@@ -44,7 +44,7 @@ app.post('/sign-up', (req, res) => {
       return;
     }
   
-    tweets.push({ username, tweet});
+    tweets.push({ username: user, tweet});
     console.log(tweets);
     res.status(201).send("Tweet postado com sucesso!");
   });
@@ -55,8 +55,6 @@ app.post('/sign-up', (req, res) => {
       const { avatar } = users.find((user) => user.username === tweet.username);
       tweet.avatar = avatar;
     });
-    res.send(tweets.slice(-10));
+    res.send(tweets.slice(-10).reverse());
   });
-
-
 app.listen(5000, () => console.log("Server running on port 5000"))
